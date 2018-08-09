@@ -52,6 +52,32 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<!-- JAXB2 Maven Plugin : This plugin will take the xsd from 
+				the resource folder mentioned below and create a Java object based on 
+				that xsd in the folder mentioned below-->
+				<!-- XSD Source Folder = schemaDirectory-->
+				<!-- Java Class Source Folder = outputDirectory -->
+				<!-- clear folder -> false in order to not clear the Java Class Source Folder each time -->
+<!-- 				So next time any changes just change in the xsd file under resources folder
+				and the java object will be automatically updated -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>xjc</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
+					<outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+					<clearOutputDir>false</clearOutputDir>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

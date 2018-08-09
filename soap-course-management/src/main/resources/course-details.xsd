@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- <XSD, xml schema file is used to define the structure of XML. For example 
+	we need to restrict the id in request accepting numbers only > -->
+
+<!-- <targetNamespace referring to the namespace that need to be used by 
+	the XML > -->
+<!-- <tns is shortcut for targetNamespace > -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://ranjen.com/courses"
+	xmlns:tns="http://ranjen.com/courses" elementFormDefault="qualified">
+
+	<xs:element name="GetCourseDetailsRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:int" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="GetCourseDetailsResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<!-- the CourseDetails element type is referring to the CourseDetails 
+					complex type below -->
+				<xs:element name="CourseDetails" type="tns:CourseDetails" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="CourseDetails">
+		<xs:sequence>
+			<xs:element name="id" type="xs:int" />
+			<xs:element name="name" type="xs:string" />
+			<xs:element name="description" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>
+
