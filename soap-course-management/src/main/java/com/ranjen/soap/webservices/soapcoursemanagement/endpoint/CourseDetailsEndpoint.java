@@ -16,6 +16,7 @@ import com.ranjen.courses.GetAllCourseDetailsResponse;
 import com.ranjen.courses.GetCourseDetailsRequest;
 import com.ranjen.courses.GetCourseDetailsResponse;
 import com.ranjen.soap.webservices.soapcoursemanagement.bean.Course;
+import com.ranjen.soap.webservices.soapcoursemanagement.exception.CourseNotFoundException;
 import com.ranjen.soap.webservices.soapcoursemanagement.service.CourseDetailsService;
 import com.ranjen.soap.webservices.soapcoursemanagement.service.CourseDetailsService.Status;
 
@@ -41,6 +42,10 @@ public class CourseDetailsEndpoint {
 	@ResponsePayload
 	public GetCourseDetailsResponse processCourseDetailsRequest(@RequestPayload GetCourseDetailsRequest request) {
 		Course course = service.findById(request.getId());
+		
+		if (course == null)
+			throw new CourseNotFoundException("Invalid Course Id " + request.getId());
+		
 		return mapCourseDetails(course);
 	}
 	
