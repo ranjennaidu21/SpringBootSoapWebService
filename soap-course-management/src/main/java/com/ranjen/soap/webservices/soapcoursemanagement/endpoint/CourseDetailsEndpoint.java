@@ -1,5 +1,6 @@
 package com.ranjen.soap.webservices.soapcoursemanagement.endpoint;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -8,12 +9,17 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import com.ranjen.courses.CourseDetails;
 import com.ranjen.courses.GetCourseDetailsRequest;
 import com.ranjen.courses.GetCourseDetailsResponse;
+import com.ranjen.soap.webservices.soapcoursemanagement.bean.Course;
+import com.ranjen.soap.webservices.soapcoursemanagement.service.CourseDetailsService;
 
 
 //tell Spring that this is a ENDPOINT
 @Endpoint
 public class CourseDetailsEndpoint {
-
+	
+	@Autowired
+	CourseDetailsService service;
+	
 	// method
 	// input - GetCourseDetailsRequest
 	// output - GetCourseDetailsResponse
@@ -27,15 +33,22 @@ public class CourseDetailsEndpoint {
 	//xml using @ResponsePayload
 	@ResponsePayload
 	public GetCourseDetailsResponse processCourseDetailsRequest(@RequestPayload GetCourseDetailsRequest request) {
+		return mapCourse(request);
+	}
+	
+	//this method will creating coursedetails , set the values and return back 
+	private GetCourseDetailsResponse mapCourse(GetCourseDetailsRequest request) {
 		GetCourseDetailsResponse response = new GetCourseDetailsResponse();
+		
+		Course course = service.findById(request.getId());
 		
 		CourseDetails courseDetails = new CourseDetails();
 		
-		courseDetails.setId(request.getId());
+		courseDetails.setId(course.getId());
 		
-		courseDetails.setName("SCIENCE");
+		courseDetails.setName(course.getName());
 		
-		courseDetails.setDescription("Science is good");
+		courseDetails.setDescription(course.getDescription());
 		
 		response.setCourseDetails(courseDetails);
 		
