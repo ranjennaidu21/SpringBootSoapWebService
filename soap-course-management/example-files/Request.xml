@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- name space http://ranjen.com/courses will make this xml unique just to my course  -->
+<GetCourseDetailsRequest xmlns="http://ranjen.com/courses" 
+xsi:schemaLocation="http://ranjen.com/courses course-details.xsd" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<id>123</id> <!-- only accept numbers  -->
+</GetCourseDetailsRequest>
